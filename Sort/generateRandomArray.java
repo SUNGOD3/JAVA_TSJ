@@ -82,6 +82,10 @@ public class generateRandomArray{
         return UpperRange;
     }
 
+    public int[] getArray(){
+        return RandomArray;
+    }
+
     public void doc(){
         System.out.println("It can generate a Random (int) Array");
         System.out.println("You need input with 3 variable: ArraySize,LowerRange,UpperRange");
