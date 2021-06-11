@@ -1,5 +1,4 @@
 import java.util.Random;
-import java.util.Arrays;
 public class generateRandomArray{
     //可以當成是陣列的功能擴增
 	private int ArraySize,LowerRange,UpperRange;
@@ -26,8 +25,8 @@ public class generateRandomArray{
         this.RandomArray=RandomArray;
 	}
 
-    //也可以像Set直接丟陣列產生
-    public generateRandomArray(int[] Array){
+    //Set成新的Random Array，LowerRange/UpperRange會分別設為陣列最小值/最大值
+    public void setRandomArray(int[] Array){
         ArraySize = Array.length;
         int mi = Integer.MAX_VALUE , ma = Integer.MIN_VALUE;
         for(int i=0;i<ArraySize;++i){
@@ -37,19 +36,6 @@ public class generateRandomArray{
         RandomArray = Array;
         LowerRange = mi-1;
         UpperRange = ma+1;
-    }
-
-    //Set成新的Random Array，LowerRange/UpperRange會分別設為陣列最小值-1/最大值+1
-    public void setRandomArray(int[] Array){
-        ArraySize = Array.length;
-        int mi = Integer.MAX_VALUE , ma = Integer.MIN_VALUE;
-        for(int i=0;i<ArraySize;++i){
-            mi = Math.min(mi,Array[i]);
-            ma = Math.max(ma,Array[i]);
-        } 
-        RandomArray = Array;
-        LowerRange = mi;
-        UpperRange = ma;
     }
 
     @Override
@@ -62,12 +48,6 @@ public class generateRandomArray{
         }
         rt+="\n";
         return rt;
-    }
-    //JAVA不支援隨時擴充陣列，所以基本上要重建
-    public void pushRandomArray(int v){
-        ++ArraySize;
-        RandomArray = Arrays.copyOf(RandomArray, ArraySize);
-        RandomArray[ArraySize-1]=v;
     }
 
     public int getArraySize(){
@@ -86,8 +66,7 @@ public class generateRandomArray{
         return RandomArray;
     }
 
-    public void doc(){
-        System.out.println("It can generate a Random (int) Array");
-        System.out.println("You need input with 3 variable: ArraySize,LowerRange,UpperRange");
+    public String doc(){
+        return "It can generate a Random (int) Array\nYou need input with 3 variable: ArraySize,LowerRange,UpperRange";
     }
 }
