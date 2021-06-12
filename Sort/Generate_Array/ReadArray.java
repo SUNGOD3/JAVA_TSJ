@@ -57,6 +57,7 @@ public class ReadArray {
 			System.err.println("Error reading from file. Terminating.");
 		} catch (NumberFormatException ex){
             System.err.println("Data format error.");
+			System.exit(0);
         }
         Integer[] arr = arrayList.toArray(new Integer[0]);
         int[] ans = new int[arr.length];
