@@ -1,6 +1,4 @@
 public class MergeSort extends Sort {
-    
-    private int count;
 
     @Override
     public String doc() {
@@ -67,4 +65,9 @@ public class MergeSort extends Sort {
     public int swapTime() {
         return -1;
     }
+
+    public newArray[] sortStep(int count,int[] arr){
+        newArray sortStepArr[] = new newArray[0];
+		return sortStepArr;
+	}
 }

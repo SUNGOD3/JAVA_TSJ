@@ -43,5 +43,24 @@ public class SelectionSort extends Sort{
 	public int swapTime(){
 		return count;
 	}
+
+	public newArray[] sortStep(int count,int[] arr){
+		int temp,it=0;
+		newArray[] sortStepArr = new newArray[count+1];// 交換2次 -> 需要3張圖
+		pushnewArray(it++,arr,sortStepArr);//參數分別為(放入的位子,放入的陣列,放入的newArray[])
+		for(int i=0;i<arr.length;++i){
+			int min=i;
+			for(int j=i+1;j<arr.length;++j)
+				if(arr[j]<arr[min])
+					min=j;
+			if(min!=i){
+				temp = arr[min];
+				arr[min] = arr[i];
+				arr[i] = temp;
+				pushnewArray(it++,arr,sortStepArr);
+			}
+		}
+		return sortStepArr;
+	}
 	
 }
