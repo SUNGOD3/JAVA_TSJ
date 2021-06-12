@@ -25,22 +25,39 @@ public class InsertionSort extends Sort {
     @Override
     public int[] runTest(int[] arr) {
         count = 0;
-        int key;
-        for (int i = 1; i < arr.length; ++i) {
-            key = arr[i];
-            int j = i - 1;
-            while ((j >= 0) && (arr[j] > key)) {
-                arr[j + 1] = arr[j];
+        int temp;
+        for(int i=0; i < arr.length; ++i) {
+            int j = i;
+            while((j > 0) && (arr[j - 1] > arr[j])) {
+                temp = arr[j - 1];
+                arr[j - 1] = arr[j];
+                arr[j] = temp;
                 count++;
                 j--;
             }
-            arr[j + 1] = key;
         }
-        return arr;
+        return arr;     
     }
 
     @Override
     public int swapTime() {
         return count;
+    }
+
+    public newArray[] sortStep(int count, int[] arr) {
+        int temp, it = 0;
+        newArray[] sortStepArr = new newArray[count + 2];
+        pushnewArray(it++, arr, sortStepArr);
+        for (int i = 1; i < arr.length; ++i) {
+            int j = i;
+            while ((j > 0) && (arr[j - 1] > arr[j])) {
+                temp = arr[j - 1];
+                arr[j - 1] = arr[j];
+                arr[j] = temp;
+                pushnewArray(it++, arr, sortStepArr);
+                j--;
+            }
+        }
+        return sortStepArr;
     }
 }
