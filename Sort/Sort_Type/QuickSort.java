@@ -1,5 +1,6 @@
 public class QuickSort extends Sort{
-    private int count;
+    private int count,it = 0;
+    newArray[] sortStepArr;
     @Override
     public String doc() {
         String s1,s2,s3,s4,s5; /*s1...s5代表關於演算法解釋的句子分段 */
@@ -39,16 +40,58 @@ public class QuickSort extends Sort{
 		for (int j = left; j < right; j++) {
 			if (number[j] <= number[right]) {
 				i++;
-				int temp = number[i];
-		        number[i] = number[j];
-		        number[j] = temp;
-                count++;
+                if(i != j){
+				    int temp = number[i];
+		            number[i] = number[j];
+		            number[j] = temp;
+                    count++;
+                }
 			}
 		}
-        int temp = number[i + 1];
-        number[i + 1] = number[right];
-        number[right] = temp;
-        count++;
+        if(i+1 != right){
+            int temp = number[i + 1];
+            number[i + 1] = number[right];
+            number[right] = temp;
+            count++;
+        }
+		return i + 1;
+	}
+
+    @Override
+    public newArray[] sortStep(int count, int[] arr) {
+		sortStepArr = new newArray[count+1];// 交換2次 -> 需要3張圖
+		pushnewArray(it++,arr,sortStepArr);
+        quickSortStep(arr,0,arr.length - 1);
+        return sortStepArr;
+    }
+
+    public void quickSortStep(int[] number, int left, int right) { //進行QuickSort的排序
+		if (left < right) {
+			int q = partitionStep(number, left, right);
+			quickSortStep(number, left, q - 1);
+			quickSortStep(number, q + 1, right);
+		}
+	}
+
+	private int partitionStep(int number[], int left, int right) { //進行QuickSort重要的分冶動作
+		int i = left - 1;
+		for (int j = left; j < right; j++) {
+			if (number[j] <= number[right]) {
+				i++;
+                if(i!=j){
+				    int temp = number[i];
+		            number[i] = number[j];
+		            number[j] = temp;
+                    pushnewArray(it++,number,sortStepArr);
+                }
+			}
+		}
+        if(i+1 != right){
+            int temp = number[i + 1];
+            number[i + 1] = number[right];
+            number[right] = temp;
+            pushnewArray(it++,number,sortStepArr);
+        }
 		return i + 1;
 	}
 

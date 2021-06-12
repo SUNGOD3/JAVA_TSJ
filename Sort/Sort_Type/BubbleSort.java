@@ -34,5 +34,23 @@ public class BubbleSort extends Sort {
     public int swapTime() { //回傳交換次數的函式
         return count;
     }
+
+    @Override
+    public newArray[] sortStep(int count,int[] arr){
+		int temp,it=0;
+		newArray[] sortStepArr = new newArray[count+1];// 交換2次 -> 需要3張圖
+		pushnewArray(it++,arr,sortStepArr);//參數分別為(放入的位子,放入的陣列,放入的newArray[])
+		for (int i = 0; i < arr.length; i++) {
+            for (int j = 0; j < arr.length - 1; j++) {
+                if (arr[j] > arr[j + 1]) {
+                    temp = arr[j];
+                    arr[j] = arr[j + 1];
+                    arr[j + 1] = temp;
+                    pushnewArray(it++,arr,sortStepArr);
+                }
+            }
+        }
+		return sortStepArr;
+	}
     
 }
