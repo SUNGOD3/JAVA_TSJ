@@ -5,9 +5,9 @@ public class generateArrayTest{
         /*generateExampleArray Rx = new generateExampleArray()*/
         /*readArray Ry = new readArray("string")*/
         int [] tmp = {1,50,66,-11,5};
-        Array Ra2 = new Array(tmp);
-        Array Ra3 = new Array(Ra.getArray());
-        Array Ra4 = new Array(Ra.getArray(),Ra.getLowerRange(),Ra.getUpperRange());
+        newArray Ra2 = new newArray(tmp);
+        newArray Ra3 = new newArray(Ra.getArray());
+        newArray Ra4 = new newArray(Ra.getArray(),Ra.getLowerRange(),Ra.getUpperRange());
         System.out.println(Ra.doc());
         System.out.println(Ra.toString());
         System.out.println(Ra2.toString());
