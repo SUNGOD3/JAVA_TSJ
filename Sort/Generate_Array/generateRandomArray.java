@@ -20,7 +20,7 @@ public class generateRandomArray{
         int[] RandomArray = new int [ArraySize];
         Random rd = new Random();
         for(int i=0;i<ArraySize;++i){
-            RandomArray[i]=(int)(rd.nextFloat()*UpperRange+LowerRange);
+            RandomArray[i]=(int)((rd.nextFloat()*(UpperRange-LowerRange-1))+LowerRange+1);
         }
         this.RandomArray=RandomArray;
 	}
