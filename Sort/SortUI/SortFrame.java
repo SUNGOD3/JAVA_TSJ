@@ -51,6 +51,7 @@ public class SortFrame extends JFrame {
 		// create text area and set initial font
 		text = new JTextArea("Test");
 		text.setFont(new Font("Consolos", Font.PLAIN, fontSize));
+		text.setEditable(false);
 
 		// add GUI components to frame
 		JPanel panel = new JPanel(); // used to get proper layout
@@ -111,6 +112,17 @@ public class SortFrame extends JFrame {
 			}
 			else if(T2=="InputArray"){
 				//TO DO...
+				if (generateArray.getText() == "NEW Generate Array") {
+					generateArray.setText("Generate Array");
+					text.setEditable(false);
+					String words = text.getText();
+					//System.out.println(words);
+				}
+				else if (generateArray.getText() == "Generate Array") {
+					generateArray.setText("NEW Generate Array");
+					text.setEditable(true);
+				}
+				text.setText("");
 			}
 		}
 		public void actionPerformed(ActionEvent e){//當Button被按到時
