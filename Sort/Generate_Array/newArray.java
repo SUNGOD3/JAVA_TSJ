@@ -4,6 +4,51 @@ public class newArray {
 	private int[] Arr/*,Color*/;
     //也可以像Set直接丟陣列產生
 
+    //當讀入合法陣列時也可以轉成newArray
+    //請先使用judge中的stringIsArray判斷格式是否正確
+    public newArray(String A){
+        int size=0,ff=0;
+        //算陣列大小 
+        for(int i=0;i<A.length();++i){
+            if((A.charAt(i)>='0'&&A.charAt(i)<='9')||A.charAt(i)=='-'){
+                if(ff==0){
+                    ++size;
+                    ff=1;
+                }
+            }
+            else{
+                ff=0;
+            }
+        }
+        ArraySize = size;
+        int[] tmpArr = new int[ArraySize];
+        int mi = Integer.MAX_VALUE , ma = Integer.MIN_VALUE , it=0;
+        String tmp="";
+        for(int i=0;i<A.length();++i){
+            if((A.charAt(i)>='0'&&A.charAt(i)<='9')||A.charAt(i)=='-'){
+                tmp+=A.charAt(i);
+            }
+            else{
+                if(tmp!=""){
+                    tmpArr[it]=Integer.parseInt(tmp);
+                    mi = Math.min(mi,tmpArr[it]);
+                    ma = Math.max(mi,tmpArr[it]);
+                    ++it;
+                }
+                tmp="";
+            }
+        }
+        if(tmp!=""){
+            tmpArr[it]=Integer.parseInt(tmp);
+            mi = Math.min(mi,tmpArr[it]);
+            ma = Math.max(mi,tmpArr[it]);
+            ++it;
+        }
+        Arr = tmpArr;
+        LowerRange = mi-1;
+        UpperRange = ma+1;
+    }
+
     //Set成新的Random Array，LowerRange/UpperRange會分別設為陣列最小值/最大值
     public newArray(int[] A){
 		Arr = A;
