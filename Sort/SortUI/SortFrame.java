@@ -111,18 +111,25 @@ public class SortFrame extends JFrame {
 				text.setText(Array.toString());
 			}
 			else if(T2=="InputArray"){
-				//TO DO...
 				if (generateArray.getText() == "NEW Generate Array") {
-					generateArray.setText("Generate Array");
-					text.setEditable(false);
 					String words = text.getText();
+					Judge jg = new Judge();
+					if(jg.stringIsArray(words)){
+						Array = new newArray(words);
+						text.setText(Array.toString());
+						generateArray.setText("Generate Array");
+						text.setEditable(false);
+					}
+					else{
+						text.setText("Input string is not an array! Please try again.");
+					}
 					//System.out.println(words);
 				}
 				else if (generateArray.getText() == "Generate Array") {
 					generateArray.setText("NEW Generate Array");
+					text.setText("");
 					text.setEditable(true);
 				}
-				text.setText("");
 			}
 		}
 		public void actionPerformed(ActionEvent e){//當Button被按到時
