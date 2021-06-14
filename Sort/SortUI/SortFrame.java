@@ -1,5 +1,6 @@
 import java.awt.BorderLayout;
 import java.awt.Font;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemListener;
@@ -10,7 +11,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
-
+import javax.swing.border.Border;
 import javax.swing.JComboBox;
 
 public class SortFrame extends JFrame {
@@ -20,13 +21,14 @@ public class SortFrame extends JFrame {
 	private static final String[] names2 = {"RandomArray","ExampleArray","ReadArray","InputArray"};
 	private String T1,T2;// 捕捉combobox的狀態
 	private JButton increaseButton,decreaseButton,generateArray,RunButton; // button to decrease font size
-	private JTextArea text; // displays example text
+	private JTextArea inputText,outputText; // displays example text
 	private int fontSize = 20; // current font size
 	private newArray Array;
 	private Sort chooseSort;// TO DO
 
 	public SortFrame() {
 		super("Sort Frame Test");
+		setLayout(new GridLayout(3,1));
 		imagesJComboBox = new JComboBox<String>(names); // set up JComboBox
 		imagesJComboBox2 = new JComboBox<String>(names2); // set up JComboBox
       	imagesJComboBox.setMaximumRowCount(5); // display three rows
@@ -49,39 +51,57 @@ public class SortFrame extends JFrame {
 		increaseButton.addActionListener(handler);
 
 		// create text area and set initial font
-		text = new JTextArea("Test");
-		text.setFont(new Font("Consolos", Font.PLAIN, fontSize));
-		text.setEditable(false);
+		inputText = new JTextArea("Test");
+		inputText.setFont(new Font("Consolos", Font.PLAIN, fontSize));
+		inputText.setEditable(false);
+		outputText = new JTextArea("Test");
+		outputText.setFont(new Font("Consolos", Font.PLAIN, fontSize));
+		outputText.setEditable(false);
 
 		// add GUI components to frame
 		JPanel panel = new JPanel(); // used to get proper layout
+		JPanel inpanel = new JPanel();
+		inpanel.setLayout(new BorderLayout());
+		JPanel outpanel = new JPanel();
+		outpanel.setLayout(new BorderLayout());
+		inpanel.add(new JScrollPane(inputText));
+		outpanel.add(new JScrollPane(outputText));
 		panel.add(generateArray);
 		panel.add(RunButton);
 		panel.add(increaseButton);
 		panel.add(decreaseButton);
 		panel.add(imagesJComboBox); // add combobox to JFrame
 		panel.add(imagesJComboBox2); // add combobox to JFrame
-		add(panel, BorderLayout.NORTH); // add buttons at top
-		add(new JScrollPane(text)); // allow scrolling
+		add(panel); // add buttons at top
+		add(inpanel); // allow scrolling
+		add(outpanel); // allow scrolling
 	}
 
 	private class EventListner implements ActionListener,ItemListener {
 		public void judgeSortType(){
 			System.out.println("You choose "+T1);
-			if(T1=="BubbleSort"){
-
+			if(Array==null){
+				outputText.setText("Please generate array first!");
 			}
-			else if(T1=="InsertionSort"){
-
-			}
-			else if(T1=="MergeSort"){
-
-			}
-			else if(T1=="QuickSort"){
-
-			}
-			else if(T1=="SelectionSort"){
-
+			else{
+				Sort Gogo;
+				if(T1=="BubbleSort"){
+					Gogo = new BubbleSort();
+				}
+				else if(T1=="InsertionSort"){
+					Gogo = new InsertionSort();
+				}
+				else if(T1=="MergeSort"){
+					Gogo = new MergeSort();
+				}
+				else if(T1=="QuickSort"){
+					Gogo = new QuickSort();
+				}
+				else /*if(T1=="SelectionSort")*/{
+					Gogo = new SelectionSort();
+				}
+				Gogo.SortMain(Array.getArray());
+				outputText.setText(Gogo.getOutput());
 			}
 		}
 		public void judgeInput(){
@@ -96,39 +116,39 @@ public class SortFrame extends JFrame {
 				int ur=Integer.parseInt(sur);
 				generateRandomArray tmp = new  generateRandomArray(n,lr,ur);
 				Array = new newArray(tmp.getArray(),lr,ur);
-				text.setText(Array.toString());
+				inputText.setText(Array.toString());
 			}
 			else if(T2=="ExampleArray"){
 				generateExampleArray tmp = new generateExampleArray();
 				Array = new newArray(tmp.getArray());
-				text.setText(Array.toString());
+				inputText.setText(Array.toString());
 			}
 			else if(T2=="ReadArray"){
 				findFile fd = new findFile();
 				System.out.println(fd.getName());
 				ReadArray tmp = new ReadArray(fd.getName()); 
 				Array = new newArray(tmp.run());
-				text.setText(Array.toString());
+				inputText.setText(Array.toString());
 			}
 			else if(T2=="InputArray"){
 				if (generateArray.getText() == "NEW Generate Array") {
-					String words = text.getText();
+					String words = inputText.getText();
 					Judge jg = new Judge();
 					if(jg.stringIsArray(words)){
 						Array = new newArray(words);
-						text.setText(Array.toString());
+						inputText.setText(Array.toString());
 						generateArray.setText("Generate Array");
-						text.setEditable(false);
+						inputText.setEditable(false);
 					}
 					else{
-						text.setText("Input string is not an array! Please try again.");
+						inputText.setText("Input string is not an array! Please try again.");
 					}
 					//System.out.println(words);
 				}
 				else if (generateArray.getText() == "Generate Array") {
 					generateArray.setText("NEW Generate Array");
-					text.setText("");
-					text.setEditable(true);
+					inputText.setText("");
+					inputText.setEditable(true);
 				}
 			}
 		}
@@ -146,7 +166,7 @@ public class SortFrame extends JFrame {
 				}
 				else{
 					fontSize+=2;
-					text.setFont(new Font("Consolas", Font.PLAIN, fontSize));
+					inputText.setFont(new Font("Consolas", Font.PLAIN, fontSize));
 				}
 			}
 			if(e.getSource()==decreaseButton){
@@ -155,7 +175,7 @@ public class SortFrame extends JFrame {
 				}
 				else{
 					fontSize-=2;
-					text.setFont(new Font("Consolas", Font.PLAIN, fontSize));
+					inputText.setFont(new Font("Consolas", Font.PLAIN, fontSize));
 				}
 			}
 		}
