@@ -13,6 +13,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.border.Border;
 import javax.swing.JComboBox;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
 public class SortFrame extends JFrame {
@@ -23,13 +24,15 @@ public class SortFrame extends JFrame {
 	private String T1,T2;// 捕捉combobox的狀態
 	private JButton increaseButton,decreaseButton,generateArray,RunButton,animation,left,right; // button to decrease font size
 	private JTextArea inputText,outputText; // displays example text
-	private int fontSize = 20, index = 0; // current font size
+	private int fontSize = 20, index = 0, it = 0, sizeOfAnimateArray; // current font size
 	private newArray Array;
-	private Sort chooseSort; // TO DO
+	private JPanel animate,tmpPic;//tmpPic表示animate內的當前圖片panel
+	private newArray[] animateArray;
+	private ImageIcon gogofuck,gogojpg;//改成全域比較好應事件更改
 
 	public SortFrame() {
 		super("Sort Frame Test");
-		setLayout(new GridLayout(4,1));
+		setLayout(new GridLayout(5,1));
 		imagesJComboBox = new JComboBox<String>(names); // set up JComboBox
 		imagesJComboBox2 = new JComboBox<String>(names2); // set up JComboBox
       	imagesJComboBox.setMaximumRowCount(5); // display three rows
@@ -43,9 +46,9 @@ public class SortFrame extends JFrame {
 		EventListner handler = new EventListner();
 		// create buttons and add action listeners
 		generateArray = new JButton("Generate Array");
-		ImageIcon image = new ImageIcon("GoGo.jpg");
-		RunButton = new JButton(image);
-		RunButton.setSize(100,100);
+		gogofuck = new ImageIcon("fuck.png");
+		gogojpg = new ImageIcon("GoGo.jpg");
+		RunButton = new JButton(gogojpg);
 		decreaseButton = new JButton("Decrease font size");
 		increaseButton = new JButton("Increase font size");
 		generateArray.addActionListener(handler);
@@ -71,7 +74,8 @@ public class SortFrame extends JFrame {
 		outpanel.setLayout(new BorderLayout());
 		inpanel.add(new JScrollPane(inputText));
 		outpanel.add(new JScrollPane(outputText));
-		JPanel animate = new JPanel();
+		tmpPic = new JPanel();
+		animate = new JPanel();//animate 之後會改變，所以設成全域
 		animate.add(left);
 		animate.add(animation);
 		animate.add(right);
@@ -88,15 +92,26 @@ public class SortFrame extends JFrame {
 		add(inpanel); // allow scrolling
 		add(outpanel); // allow scrolling
 		add(animate);
+		add(tmpPic);
 	}
 
 	private class EventListner implements ActionListener,ItemListener {
+		public void setAnimateImg(){//重製新圖片(把舊圖看掉放新的)
+			Chart chart = new Chart(animateArray[it]);
+			SortFrame.this.remove(tmpPic);
+			tmpPic = chart.getChartPanel();
+			SortFrame.this.add(tmpPic);
+			SortFrame.this.revalidate();
+		}
 		public void judgeSortType(){
 			System.out.println("You choose "+T1);
 			if(Array==null){
 				outputText.setText("Please generate array first!");
+				RunButton.setIcon(gogofuck);
 			}
 			else{
+				it = 0;
+				RunButton.setIcon(gogojpg);
 				Sort Gogo;
 				if(T1=="BubbleSort"){
 					Gogo = new BubbleSort();
@@ -114,7 +129,14 @@ public class SortFrame extends JFrame {
 					Gogo = new SelectionSort();
 				}
 				Gogo.SortMain(Array.getArray());
+				animateArray = Gogo.getsortStep();
 				outputText.setText(Gogo.getOutput());
+				sizeOfAnimateArray = Gogo.swapTime();
+				it=0;
+				/*animate.remove(tmpPic);	//animate和按鈕共用一個panel會因為圖片太大而把按鈕擠掉
+				tmpPic = chart.getChartPanel();
+				animate.add(tmpPic);*/
+				setAnimateImg();
 			}
 		}
 		public void judgeInput(){
@@ -166,6 +188,19 @@ public class SortFrame extends JFrame {
 			}
 		}
 		public void actionPerformed(ActionEvent e){//當Button被按到時
+			
+			if(e.getSource()==left){
+				if(it>0){
+					--it;
+					setAnimateImg();
+				}
+			}
+			if(e.getSource()==right){
+				if(it<sizeOfAnimateArray){
+					++it;
+					setAnimateImg();
+				}
+			}
 			if(e.getSource()==generateArray){//產生陣列
 				judgeInput();
 			}
@@ -205,6 +240,9 @@ public class SortFrame extends JFrame {
 					index = 0;
 				}
 			}
+			/*  當run被按時
+				To Do...
+			*/
 		}
 
 		@Override//捕捉combobox
