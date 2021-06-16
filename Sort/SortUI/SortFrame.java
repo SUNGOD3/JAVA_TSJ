@@ -13,6 +13,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.border.Border;
 import javax.swing.JComboBox;
+import javax.swing.ImageIcon;
 
 public class SortFrame extends JFrame {
 	
@@ -42,7 +43,9 @@ public class SortFrame extends JFrame {
 		EventListner handler = new EventListner();
 		// create buttons and add action listeners
 		generateArray = new JButton("Generate Array");
-		RunButton = new JButton("Go Go!");
+		ImageIcon image = new ImageIcon("GoGo.jpg");
+		RunButton = new JButton(image);
+		RunButton.setSize(100,100);
 		decreaseButton = new JButton("Decrease font size");
 		increaseButton = new JButton("Increase font size");
 		generateArray.addActionListener(handler);
