@@ -20,15 +20,15 @@ public class SortFrame extends JFrame {
 	private static final String[] names = {"BubbleSort","InsertionSort","MergeSort","QuickSort","SelectionSort"};
 	private static final String[] names2 = {"RandomArray","ExampleArray","ReadArray","InputArray"};
 	private String T1,T2;// 捕捉combobox的狀態
-	private JButton increaseButton,decreaseButton,generateArray,RunButton; // button to decrease font size
+	private JButton increaseButton,decreaseButton,generateArray,RunButton,animation,left,right; // button to decrease font size
 	private JTextArea inputText,outputText; // displays example text
-	private int fontSize = 20; // current font size
+	private int fontSize = 20, index = 0; // current font size
 	private newArray Array;
-	private Sort chooseSort;// TO DO
+	private Sort chooseSort; // TO DO
 
 	public SortFrame() {
 		super("Sort Frame Test");
-		setLayout(new GridLayout(3,1));
+		setLayout(new GridLayout(4,1));
 		imagesJComboBox = new JComboBox<String>(names); // set up JComboBox
 		imagesJComboBox2 = new JComboBox<String>(names2); // set up JComboBox
       	imagesJComboBox.setMaximumRowCount(5); // display three rows
@@ -49,7 +49,9 @@ public class SortFrame extends JFrame {
 		RunButton.addActionListener(handler);
 		decreaseButton.addActionListener(handler);
 		increaseButton.addActionListener(handler);
-
+		animation = new JButton("Run");
+		left = new JButton("<=");
+		right = new JButton("=>");
 		// create text area and set initial font
 		inputText = new JTextArea("Test");
 		inputText.setFont(new Font("Consolos", Font.PLAIN, fontSize));
@@ -66,6 +68,13 @@ public class SortFrame extends JFrame {
 		outpanel.setLayout(new BorderLayout());
 		inpanel.add(new JScrollPane(inputText));
 		outpanel.add(new JScrollPane(outputText));
+		JPanel animate = new JPanel();
+		animate.add(left);
+		animate.add(animation);
+		animate.add(right);
+		left.addActionListener(handler);
+		animation.addActionListener(handler);
+		right.addActionListener(handler);
 		panel.add(generateArray);
 		panel.add(RunButton);
 		panel.add(increaseButton);
@@ -75,6 +84,7 @@ public class SortFrame extends JFrame {
 		add(panel); // add buttons at top
 		add(inpanel); // allow scrolling
 		add(outpanel); // allow scrolling
+		add(animate);
 	}
 
 	private class EventListner implements ActionListener,ItemListener {
@@ -176,6 +186,20 @@ public class SortFrame extends JFrame {
 				else{
 					fontSize-=2;
 					inputText.setFont(new Font("Consolas", Font.PLAIN, fontSize));
+				}
+			}
+			if(e.getSource()==animation){
+				if(index == 0){
+					animation.setText("pause");
+					left.setEnabled(false);
+					right.setEnabled(false);
+					index = 1;
+				}
+				else if(index == 1){
+					animation.setText("Run");
+					left.setEnabled(true);
+					right.setEnabled(true);
+					index = 0;
 				}
 			}
 		}
