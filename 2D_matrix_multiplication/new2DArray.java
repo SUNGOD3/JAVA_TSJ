@@ -38,10 +38,22 @@ public class new2DArray {
         UpperRange = max;
     }
 
-    /*@Override
-    public String toString(){
-        
-    }*/
+    @Override
+    public String toString() {
+        String rt = "";
+        rt += "ArraySize : " + My2DArraySize;
+        rt += "\nRange of ArraySize[i] : " + LowerRange + " < ArraySize[i] < " + UpperRange + "\n";
+        rt += "RowSize : " + RowSize + "\nColSize : " + ColSize;
+        rt += "\n";
+        for (int i = 0; i < RowSize; ++i) {
+            for (int j = 0; j < ColSize; ++j) {
+                rt += My2DArr[i][j] + " ";
+            }
+            rt += "\n";
+        }
+        rt += "\n";
+        return rt;
+    }
     //JAVA不支援隨時擴充陣列，所以基本上要重建
 
 
