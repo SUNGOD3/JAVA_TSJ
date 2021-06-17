@@ -1,6 +1,8 @@
 import java.util.Arrays;
+
+
 public class new2DArray {
-	private int My2DArraySize,ColSize,RowSize,LowerRange,UpperRange/*,Type*/;
+	private int My2DArraySize, ColSize, RowSize, LowerRange, UpperRange/*,Type*/;
 	private int[][] My2DArr/*,Color*/;
     //也可以像Set直接丟陣列產生
 
@@ -11,23 +13,29 @@ public class new2DArray {
     }*/
 
     //Set成新的Random Array，LowerRange/UpperRange會分別設為陣列最小值/最大值
-    public new2DArray(int[][] A){
-		/*Arr = A;
-        int mi = Integer.MAX_VALUE , ma = Integer.MIN_VALUE;
-        ArraySize = A.length;
-		for(int i=0;i<ArraySize;++i){
-            mi = Math.min(mi,A[i]);
-            ma = Math.max(ma,A[i]);
+    public new2DArray(int[][] A) {
+		My2DArr = A;
+        int mi = Integer.MAX_VALUE, ma = Integer.MIN_VALUE;
+        RowSize = A.length;
+        ColSize = A[0].length;
+		for (int i = 0; i < RowSize; ++i) {
+            for (int j = 0; j < ColSize; ++j) {
+                mi = Math.min(mi, A[i][j]);
+                ma = Math.max(ma, A[i][j]);
+            }
         } 
-        LowerRange = mi-1;
-        UpperRange = ma+1;*/
+        My2DArraySize = ColSize * RowSize;
+        LowerRange = mi - 1;
+        UpperRange = ma + 1;
     }
 
-	public new2DArray(int[][] A,int min,int max){
-		/*Arr = A;
-		ArraySize = A.length;
+	public new2DArray(int[][] A, int min, int max) {
+		My2DArr = A;
+        RowSize = A.length;
+        ColSize = A[0].length;
+        My2DArraySize = ColSize * RowSize;
         LowerRange = min;
-        UpperRange = max;*/
+        UpperRange = max;
     }
 
     /*@Override
@@ -37,19 +45,27 @@ public class new2DArray {
     //JAVA不支援隨時擴充陣列，所以基本上要重建
 
 
-    public int get2DArraySize(){
+    public int get2DArraySize() {
         return My2DArraySize;
     }
 
-    public int getLowerRange(){
+    public int getLowerRange() {
         return LowerRange;
     }
 
-    public int getUpperRange(){
+    public int getUpperRange() {
         return UpperRange;
     }
 
-    public int[][] get2DArray(){
+    public int getColSize() {
+        return ColSize;
+    }
+
+    public int getRowSize() {
+        return RowSize;
+    }
+
+    public int[][] get2DArray() {
         return My2DArr;
     }
 }
