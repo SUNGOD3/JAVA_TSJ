@@ -5,8 +5,8 @@ public class generate2DExampleArray {
     public generate2DExampleArray() {
         int[][] Example2DArray = {{1,50,66,-11,5}, {5,6,11,20,8}};
         this.Example2DArray = Example2DArray;
-        RowSize = 5;
-        ColSize = 2;
+        RowSize = 2;
+        ColSize = 5;
         My2DArraySize = 10;
         LowerRange = -12;
         UpperRange = 67;
@@ -32,7 +32,7 @@ public class generate2DExampleArray {
     public String toString() {
         String rt = "";
         rt += "ArraySize : " + My2DArraySize;
-        rt += "\nRange of ArraySize[i] : " + LowerRange + " < ArraySize[i] < " + UpperRange + "\n";
+        rt += "\nRange of ArraySize[i][j] : " + LowerRange + " < ArraySize[i][j] < " + UpperRange + "\n";
         rt += "RowSize : " + RowSize + "\nColSize : " + ColSize;
         rt += "\n";
         for (int i = 0; i < RowSize; ++i) {
@@ -69,7 +69,7 @@ public class generate2DExampleArray {
         return Example2DArray;
     }
 
-    /*public String doc(){
-        return "It can generate an Example (int) Array.";
-    }*/
+    public String doc(){
+        return "It can generate an Example (int[][]) 2DArray.";
+    }
 }
