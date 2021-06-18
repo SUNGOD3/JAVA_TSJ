@@ -12,24 +12,28 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.JTextField;
 import javax.swing.border.Border;
 import javax.swing.JComboBox;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
-
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 public class SortFrame extends JFrame {
 	
 	private final JComboBox<String> imagesJComboBox,imagesJComboBox2; // hold icon names
 	private static final String[] names = {"BubbleSort","InsertionSort","MergeSort","QuickSort","SelectionSort"};
 	private static final String[] names2 = {"RandomArray","ExampleArray","ReadArray","InputArray"};
 	private String T1,T2;// 捕捉combobox的狀態
-	private JButton increaseButton,decreaseButton,generateArray,RunButton,animation,left,right; // button to decrease font size
+	private JButton increaseButton,decreaseButton,generateArray,RunButton,animation,left,right,changeSpeed; // button to decrease font size
 	private JTextArea inputText,outputText; // displays example text
-	private int fontSize = 20, index = 0, it = 0, sizeOfAnimateArray; // current font size
+	private int fontSize = 20, index = 0, it = 0, sizeOfAnimateArray,nTime = 500; // current font size
 	private newArray Array;
 	private JPanel animate,tmpPic;//tmpPic表示animate內的當前圖片panel
 	private newArray[] animateArray;
 	private ImageIcon gogofuck,gogojpg,errorfuck;//改成全域比較好應事件更改
+	private JTextField speed = new JTextField("0.5");
+	private JLabel nowTime = new JLabel("");
 
 	public SortFrame() {
 		super("Sort Frame Test");
@@ -53,8 +57,10 @@ public class SortFrame extends JFrame {
 		RunButton = new JButton(gogojpg);
 		decreaseButton = new JButton("Decrease font size");
 		increaseButton = new JButton("Increase font size");
+		changeSpeed = new JButton("speedChange");
 		generateArray.addActionListener(handler);
 		RunButton.addActionListener(handler);
+		changeSpeed.addActionListener(handler);
 		decreaseButton.addActionListener(handler);
 		increaseButton.addActionListener(handler);
 		animation = new JButton("Run"); //這是下面圖片的RUN
@@ -81,6 +87,9 @@ public class SortFrame extends JFrame {
 		animate.add(left);
 		animate.add(animation);
 		animate.add(right);
+		animate.add(changeSpeed);
+		animate.add(speed);
+		animate.add(nowTime);
 		left.addActionListener(handler);
 		animation.addActionListener(handler);
 		right.addActionListener(handler);
@@ -255,6 +264,11 @@ public class SortFrame extends JFrame {
 					index = 0;
 				}
 			}
+			if(e.getSource()==changeSpeed){
+				if(speed.getText() != ""){
+					nTime = (int)(1000 * Double.parseDouble(speed.getText()));
+				}
+			}
 			/*  當run被按時
 				To Do...
 			*/
@@ -283,7 +297,7 @@ public class SortFrame extends JFrame {
 					++it;
 					setAnimateImg();
 					try{
-						Thread.sleep(500);
+						Thread.sleep(nTime);
 					}catch (InterruptedException e) {
       				return;
 					}
