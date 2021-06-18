@@ -33,7 +33,7 @@ public class SortFrame extends JFrame {
 	private newArray[] animateArray;
 	private ImageIcon gogofuck,gogojpg,errorfuck;//改成全域比較好應事件更改
 	private JTextField speed = new JTextField("0.5");
-	private JLabel nowTime = new JLabel("");
+	private JLabel nowTime = new JLabel("0/0");
 
 	public SortFrame() {
 		super("Sort Frame Test");
@@ -211,12 +211,14 @@ public class SortFrame extends JFrame {
 			if(e.getSource()==left){
 				if(it>0){
 					--it;
+					nowTime.setText(String.format("%d/%d",it,sizeOfAnimateArray));
 					setAnimateImg();
 				}
 			}
 			if(e.getSource()==right){
 				if(it<sizeOfAnimateArray){
 					++it;
+					nowTime.setText(String.format("%d/%d",it,sizeOfAnimateArray));
 					setAnimateImg();
 				}
 			}
@@ -295,6 +297,7 @@ public class SortFrame extends JFrame {
 			public void run(){
 				while(it<sizeOfAnimateArray && index == 1){
 					++it;
+					nowTime.setText(String.format("%d/%d",it,sizeOfAnimateArray));
 					setAnimateImg();
 					try{
 						Thread.sleep(nTime);
