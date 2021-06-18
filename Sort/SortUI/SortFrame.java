@@ -21,11 +21,12 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 public class SortFrame extends JFrame {
 	
+	private Judge JJ = new Judge();//當有任何需要判斷的情況請盡量使用他
 	private final JComboBox<String> imagesJComboBox,imagesJComboBox2; // hold icon names
 	private static final String[] names = {"BubbleSort","InsertionSort","MergeSort","QuickSort","SelectionSort"};
 	private static final String[] names2 = {"RandomArray","ExampleArray","ReadArray","InputArray"};
 	private String T1,T2;// 捕捉combobox的狀態
-	private JButton increaseButton,decreaseButton,generateArray,RunButton,animation,left,right,changeSpeed; // button to decrease font size
+	private JButton increaseButton,decreaseButton,generateArray,RunButton,animation,left,right,changeSpeed,goToIt; // button to decrease font size
 	private JTextArea inputText,outputText; // displays example text
 	private int fontSize = 20, index = 0, it = 0, sizeOfAnimateArray,nTime = 500; // current font size
 	private newArray Array;
@@ -33,7 +34,8 @@ public class SortFrame extends JFrame {
 	private newArray[] animateArray;
 	private ImageIcon gogofuck,gogojpg,errorfuck;//改成全域比較好應事件更改
 	private JTextField speed = new JTextField("0.5");
-	private JLabel nowTime = new JLabel("0/0");
+	private JTextField changeIt = new JTextField("0");
+	private JLabel nowTime = new JLabel("/0");
 
 	public SortFrame() {
 		super("Sort Frame Test");
@@ -57,12 +59,15 @@ public class SortFrame extends JFrame {
 		RunButton = new JButton(gogojpg);
 		decreaseButton = new JButton("Decrease font size");
 		increaseButton = new JButton("Increase font size");
+		goToIt = new JButton("Click to see the step or press 'Enter'");
 		changeSpeed = new JButton("speedChange");
 		generateArray.addActionListener(handler);
 		RunButton.addActionListener(handler);
 		changeSpeed.addActionListener(handler);
 		decreaseButton.addActionListener(handler);
 		increaseButton.addActionListener(handler);
+		goToIt.addActionListener(handler);
+		goToIt.addKeyListener(handler);
 		animation = new JButton("Run"); //這是下面圖片的RUN
 		left = new JButton("<=");
 		right = new JButton("=>");
@@ -89,7 +94,9 @@ public class SortFrame extends JFrame {
 		animate.add(right);
 		animate.add(changeSpeed);
 		animate.add(speed);
+		animate.add(changeIt);
 		animate.add(nowTime);
+		animate.add(goToIt);
 		left.addActionListener(handler);
 		animation.addActionListener(handler);
 		right.addActionListener(handler);
@@ -106,8 +113,10 @@ public class SortFrame extends JFrame {
 		add(tmpPic);
 	}
 
-	private class EventListner implements ActionListener,ItemListener {
+	private class EventListner implements ActionListener,ItemListener,KeyListener {
 		public void setAnimateImg(){//重製新圖片(把舊圖看掉放新的)
+			changeIt.setText(String.format("%d",it));
+			nowTime.setText(String.format("/%d",sizeOfAnimateArray));
 			Chart chart = new Chart(animateArray[it]);
 			SortFrame.this.remove(tmpPic);
 			tmpPic = chart.getChartPanel();
@@ -187,8 +196,7 @@ public class SortFrame extends JFrame {
 			else if(T2=="InputArray"){
 				if (generateArray.getText() == "NEW Generate Array") {
 					String words = inputText.getText();
-					Judge jg = new Judge();
-					if(jg.stringIsArray(words)){
+					if(JJ.stringIsArray(words)){
 						Array = new newArray(words);
 						inputText.setText(Array.toString());
 						generateArray.setText("Generate Array");
@@ -211,14 +219,12 @@ public class SortFrame extends JFrame {
 			if(e.getSource()==left){
 				if(it>0){
 					--it;
-					nowTime.setText(String.format("%d/%d",it,sizeOfAnimateArray));
 					setAnimateImg();
 				}
 			}
 			if(e.getSource()==right){
 				if(it<sizeOfAnimateArray){
 					++it;
-					nowTime.setText(String.format("%d/%d",it,sizeOfAnimateArray));
 					setAnimateImg();
 				}
 			}
@@ -271,9 +277,36 @@ public class SortFrame extends JFrame {
 					nTime = (int)(1000 * Double.parseDouble(speed.getText()));
 				}
 			}
-			/*  當run被按時
-				To Do...
-			*/
+			if(e.getSource()==goToIt)
+				checkGo();
+		}
+
+		//捕捉keyPress
+		public void keyPressed(KeyEvent e){
+            if(e.getKeyCode() == KeyEvent.VK_ENTER)
+                checkGo();
+        }
+		@Override
+        public void keyTyped(KeyEvent e) {}
+        @Override
+        public void keyReleased(KeyEvent e) {}
+
+		public void checkGo(){
+			if(JJ.stringIsArray(changeIt.getText())){
+				int tmp = Integer.parseInt(changeIt.getText());
+				if((tmp<=sizeOfAnimateArray&&tmp>=0)&&sizeOfAnimateArray!=0){
+					it = tmp;
+					setAnimateImg();
+				}
+				else{
+					JOptionPane.showMessageDialog(null, "輸入格式錯誤!(請輸入範圍內的正整數)", "格式輸入錯誤", JOptionPane.ERROR_MESSAGE);
+					changeIt.setText(Integer.toString(it));
+				}
+			}
+			else{
+				JOptionPane.showMessageDialog(null, "輸入格式錯誤!(請輸入範圍內的正整數)", "格式輸入錯誤", JOptionPane.ERROR_MESSAGE);
+				changeIt.setText(Integer.toString(it));
+			}
 		}
 
 		@Override//捕捉combobox
