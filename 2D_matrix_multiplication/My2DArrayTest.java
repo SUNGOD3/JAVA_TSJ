@@ -1,3 +1,5 @@
+import jdk.incubator.vector.VectorOperators.Test;
+
 public class My2DArrayTest{
     //之後會整合成SortAPI
 	public static void main(String[] args) {
@@ -15,5 +17,11 @@ public class My2DArrayTest{
         new2DArray Ra6 = new new2DArray(Ry.getArray());
         System.out.println(Ra5.toString());
         System.out.println(Ra6.toString());
+        Mul Test1 = new StrassenMul();
+        int [][] testA = {{1,2,3,4},{-2,4,5,6},{5,9,8,7},{2,8,6,9}},testB = {{5,6,-1,5},{0,5,1,1},{10,7,6,3},{5,6,7,8}};
+        //Strassen此演算法只能接受長度相同且為2的覓次的方陣相乘(實際上可以用一些技巧解決這個問題，如果你專題有興趣做這個的話)
+        Test1.MulMain(testA, testB);
+        //若不確定答案正確性可前往以下網頁
+        //https://matrixcalc.org/zh/#%7B%7B1,2,3,4%7D,%7B-2,4,5,6%7D,%7B5,9,8,7%7D,%7B2,8,6,9%7D%7D%2a%7B%7B5,6,-1,5%7D,%7B0,5,1,1%7D,%7B10,7,6,3%7D,%7B5,6,7,8%7D%7D
     }
 }
