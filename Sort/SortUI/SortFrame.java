@@ -7,6 +7,7 @@ import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -28,7 +29,7 @@ public class SortFrame extends JFrame {
 	private newArray Array;
 	private JPanel animate,tmpPic;//tmpPic表示animate內的當前圖片panel
 	private newArray[] animateArray;
-	private ImageIcon gogofuck,gogojpg;//改成全域比較好應事件更改
+	private ImageIcon gogofuck,gogojpg,errorfuck;//改成全域比較好應事件更改
 
 	public SortFrame() {
 		super("Sort Frame Test");
@@ -47,6 +48,7 @@ public class SortFrame extends JFrame {
 		// create buttons and add action listeners
 		generateArray = new JButton("Generate Array");
 		gogofuck = new ImageIcon("fuck.png");
+		errorfuck = new ImageIcon("fuck.png");
 		gogojpg = new ImageIcon("GoGo.jpg");
 		RunButton = new JButton(gogojpg);
 		decreaseButton = new JButton("Decrease font size");
@@ -55,7 +57,7 @@ public class SortFrame extends JFrame {
 		RunButton.addActionListener(handler);
 		decreaseButton.addActionListener(handler);
 		increaseButton.addActionListener(handler);
-		animation = new JButton("Run");
+		animation = new JButton("Run"); //這是下面圖片的RUN
 		left = new JButton("<=");
 		right = new JButton("=>");
 		// create text area and set initial font
@@ -103,6 +105,9 @@ public class SortFrame extends JFrame {
 			SortFrame.this.add(tmpPic);
 			SortFrame.this.revalidate();
 		}
+		public void noImage(){ //此項是用來在沒有圖片時作的事
+			
+		}
 		public void judgeSortType(){
 			System.out.println("You choose "+T1);
 			if(Array==null){
@@ -131,12 +136,17 @@ public class SortFrame extends JFrame {
 				Gogo.SortMain(Array.getArray());
 				animateArray = Gogo.getsortStep();
 				outputText.setText(Gogo.getOutput());
-				sizeOfAnimateArray = Gogo.swapTime();
-				it=0;
-				/*animate.remove(tmpPic);	//animate和按鈕共用一個panel會因為圖片太大而把按鈕擠掉
-				tmpPic = chart.getChartPanel();
-				animate.add(tmpPic);*/
-				setAnimateImg();
+				if(Gogo.swapTime() == -1){
+					
+				}
+				else {
+					sizeOfAnimateArray = Gogo.swapTime();
+					it=0;
+					/*animate.remove(tmpPic);	//animate和按鈕共用一個panel會因為圖片太大而把按鈕擠掉
+					tmpPic = chart.getChartPanel();
+					animate.add(tmpPic);*/
+					setAnimateImg();
+				}
 			}
 		}
 		public void judgeInput(){
@@ -232,6 +242,11 @@ public class SortFrame extends JFrame {
 					left.setEnabled(false);
 					right.setEnabled(false);
 					index = 1;
+					if(it<sizeOfAnimateArray){
+						RunChart r1 = new RunChart();
+						Thread thr = new Thread(r1);
+						thr.start();
+					}
 				}
 				else if(index == 1){
 					animation.setText("Run");
@@ -262,5 +277,18 @@ public class SortFrame extends JFrame {
 			}
 			
 		} 
+		public class RunChart implements Runnable{
+			public void run(){
+				while(it<sizeOfAnimateArray && index == 1){
+					++it;
+					setAnimateImg();
+					try{
+						Thread.sleep(500);
+					}catch (InterruptedException e) {
+      				return;
+					}
+				}
+			}
+		}
 	}
 }
