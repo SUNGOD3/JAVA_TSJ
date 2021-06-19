@@ -25,6 +25,7 @@ public class SortFrame extends JFrame {
 	private final JComboBox<String> imagesJComboBox,imagesJComboBox2; // hold icon names
 	private static final String[] names = {"BubbleSort","InsertionSort","MergeSort","QuickSort","SelectionSort"};
 	private static final String[] names2 = {"RandomArray","ExampleArray","ReadArray","InputArray"};
+	private Boolean usingName = false,usingName2 = false;
 	private String T1,T2;// 捕捉combobox的狀態
 	private JButton increaseButton,decreaseButton,generateArray,RunButton,animation,left,right,changeSpeedL,goToIt,changeSpeedR; // button to decrease font size
 	private JTextArea inputText,outputText; // displays example text
@@ -353,12 +354,46 @@ public class SortFrame extends JFrame {
 				if (e.getStateChange() == ItemEvent.SELECTED){
 					System.out.println(e.getItem());
 					T1 = (String) e.getItem();
+					Sort Gogo;
+					if(T1=="BubbleSort"){
+						Gogo = new BubbleSort();
+					}
+					else if(T1=="InsertionSort"){
+						Gogo = new InsertionSort();
+					}
+					else if(T1=="MergeSort"){
+						Gogo = new MergeSort();
+					}
+					else if(T1=="QuickSort"){
+						Gogo = new QuickSort();
+					}
+					else{
+						Gogo = new SelectionSort();
+					}
+					if(usingName==true){
+						JOptionPane.showMessageDialog(null,Gogo.doc(),"演算法說明",JOptionPane.INFORMATION_MESSAGE);
+					}
+					else{
+						usingName=true;
+					}
 				}
 			}
 			else if(e.getSource()==imagesJComboBox2){
 				if (e.getStateChange() == ItemEvent.SELECTED){
 					System.out.println(e.getItem());
 					T2 = (String) e.getItem();
+					if(T2=="RandomArray"){//doc 文件請改成回傳String
+						//JOptionPane.showMessageDialog(null,generateRandomArray.doc(),"輸入說明",JOptionPane.INFORMATION_MESSAGE);
+					}
+					else if(T2=="ExampleArray"){
+						//JOptionPane.showMessageDialog(null,generateExampleArray.doc(),"輸入說明",JOptionPane.INFORMATION_MESSAGE);
+					}
+					else if(T2=="ReadArray"){
+						//JOptionPane.showMessageDialog(null,ReadArray.doc(),"輸入說明",JOptionPane.INFORMATION_MESSAGE);
+					}
+					else if(T2=="InputArray"){
+						JOptionPane.showMessageDialog(null,"請先點擊一次'Generate Array'按鈕後，於input區域輸入格式正確的陣列(整數、數字間須有空格、可以有負數、不可換行)\n最後再點選'NEW Generate Array'即可輸入陣列","輸入說明",JOptionPane.INFORMATION_MESSAGE);
+					}
 				}
 			}
 			
