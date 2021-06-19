@@ -26,14 +26,14 @@ public class SortFrame extends JFrame {
 	private static final String[] names = {"BubbleSort","InsertionSort","MergeSort","QuickSort","SelectionSort"};
 	private static final String[] names2 = {"RandomArray","ExampleArray","ReadArray","InputArray"};
 	private String T1,T2;// 捕捉combobox的狀態
-	private JButton increaseButton,decreaseButton,generateArray,RunButton,animation,left,right,changeSpeed,goToIt; // button to decrease font size
+	private JButton increaseButton,decreaseButton,generateArray,RunButton,animation,left,right,changeSpeedL,goToIt,changeSpeedR; // button to decrease font size
 	private JTextArea inputText,outputText; // displays example text
 	private int fontSize = 20, index = 0, it = 0, sizeOfAnimateArray,nTime = 500; // current font size
 	private newArray Array;
 	private JPanel animate,tmpPic;//tmpPic表示animate內的當前圖片panel
 	private newArray[] animateArray;
 	private ImageIcon gogofuck,gogojpg,errorfuck;//改成全域比較好應事件更改
-	private JTextField speed = new JTextField("0.5");
+	private JLabel speed = new JLabel("0.5");
 	private JTextField changeIt = new JTextField("0");
 	private JLabel nowTime = new JLabel("/0");
 
@@ -60,10 +60,12 @@ public class SortFrame extends JFrame {
 		decreaseButton = new JButton("Decrease font size");
 		increaseButton = new JButton("Increase font size");
 		goToIt = new JButton("Click to see the step or press 'Enter'");
-		changeSpeed = new JButton("speedChange");
+		changeSpeedL = new JButton("speedDown");
+		changeSpeedR = new JButton("speedUp");
 		generateArray.addActionListener(handler);
 		RunButton.addActionListener(handler);
-		changeSpeed.addActionListener(handler);
+		changeSpeedL.addActionListener(handler);
+		changeSpeedR.addActionListener(handler);
 		decreaseButton.addActionListener(handler);
 		increaseButton.addActionListener(handler);
 		goToIt.addActionListener(handler);
@@ -92,8 +94,9 @@ public class SortFrame extends JFrame {
 		animate.add(left);
 		animate.add(animation);
 		animate.add(right);
-		animate.add(changeSpeed);
+		animate.add(changeSpeedL);
 		animate.add(speed);
+		animate.add(changeSpeedR);
 		animate.add(changeIt);
 		animate.add(nowTime);
 		animate.add(goToIt);
@@ -272,13 +275,21 @@ public class SortFrame extends JFrame {
 					index = 0;
 				}
 			}
-			if(e.getSource()==changeSpeed){
-				if(speed.getText() != ""){
-					nTime = (int)(1000 * Double.parseDouble(speed.getText()));
+			if(e.getSource()==changeSpeedL){
+				if(Double.parseDouble(speed.getText()) > 0.1){
+					nTime -= 100;
+					speed.setText(String.format("%.1f",(double)nTime/1000));
 				}
 			}
-			if(e.getSource()==goToIt)
+			if(e.getSource() == changeSpeedR){
+				if(Double.parseDouble(speed.getText()) < 10.0){
+					nTime += 100;
+					speed.setText(String.format("%.1f",(double)nTime/1000));
+				}	
+			}
+			if(e.getSource()==goToIt){
 				checkGo();
+			}
 		}
 
 		//捕捉keyPress
