@@ -35,11 +35,14 @@ public class SortFrame extends JFrame {
 	private ImageIcon gogofuck,gogojpg,errorfuck;//改成全域比較好應事件更改
 	private JLabel speed = new JLabel("0.5");
 	private JTextField changeIt = new JTextField("0");
-	private JLabel nowTime = new JLabel("/0");
+	private JLabel nowTime = new JLabel("/0"), sec = new JLabel("Seconds"), step = new JLabel("Step");
+	private JPanel bottomJPanel1, bottomJPanel2, bottomJPanel3, bottomJPanel4, sJPanel;
 
 	public SortFrame() {
 		super("Sort Frame Test");
-		setLayout(new GridLayout(5,1));
+		sJPanel= new JPanel();
+		sJPanel.setLayout(new GridLayout(3,1));
+		setLayout(new BorderLayout());
 		imagesJComboBox = new JComboBox<String>(names); // set up JComboBox
 		imagesJComboBox2 = new JComboBox<String>(names2); // set up JComboBox
       	imagesJComboBox.setMaximumRowCount(5); // display three rows
@@ -60,8 +63,8 @@ public class SortFrame extends JFrame {
 		decreaseButton = new JButton("Decrease font size");
 		increaseButton = new JButton("Increase font size");
 		goToIt = new JButton("Click to see the step or press 'Enter'");
-		changeSpeedL = new JButton("speedDown");
-		changeSpeedR = new JButton("speedUp");
+		changeSpeedL = new JButton("－");
+		changeSpeedR = new JButton("＋");
 		generateArray.addActionListener(handler);
 		RunButton.addActionListener(handler);
 		changeSpeedL.addActionListener(handler);
@@ -86,12 +89,31 @@ public class SortFrame extends JFrame {
 		JPanel inpanel = new JPanel();
 		inpanel.setLayout(new BorderLayout());
 		JPanel outpanel = new JPanel();
+		bottomJPanel1 = new JPanel();
+		bottomJPanel2 = new JPanel();
+		bottomJPanel3 = new JPanel();
+		bottomJPanel4 = new JPanel();
 		outpanel.setLayout(new BorderLayout());
 		inpanel.add(new JScrollPane(inputText));
 		outpanel.add(new JScrollPane(outputText));
 		tmpPic = new JPanel();
 		animate = new JPanel();//animate 之後會改變，所以設成全域
-		animate.add(left);
+		bottomJPanel1.add(left);
+		bottomJPanel1.add(animation);
+		bottomJPanel1.add(right);
+		bottomJPanel2.add(changeSpeedL);
+		bottomJPanel2.add(speed);
+		bottomJPanel2.add(changeSpeedR);
+		bottomJPanel2.add(sec);
+		bottomJPanel3.add(step);
+		bottomJPanel3.add(changeIt);
+		bottomJPanel3.add(nowTime);
+		bottomJPanel3.add(goToIt);
+		animate.setLayout(new GridLayout(1,3));
+		animate.add(bottomJPanel1);
+		animate.add(bottomJPanel2);
+		animate.add(bottomJPanel3);
+		/*animate.add(left);
 		animate.add(animation);
 		animate.add(right);
 		animate.add(changeSpeedL);
@@ -99,7 +121,7 @@ public class SortFrame extends JFrame {
 		animate.add(changeSpeedR);
 		animate.add(changeIt);
 		animate.add(nowTime);
-		animate.add(goToIt);
+		animate.add(goToIt);*/
 		left.addActionListener(handler);
 		animation.addActionListener(handler);
 		right.addActionListener(handler);
@@ -109,11 +131,15 @@ public class SortFrame extends JFrame {
 		panel.add(decreaseButton);
 		panel.add(imagesJComboBox); // add combobox to JFrame
 		panel.add(imagesJComboBox2); // add combobox to JFrame
-		add(panel); // add buttons at top
-		add(inpanel); // allow scrolling
-		add(outpanel); // allow scrolling
-		add(animate);
-		add(tmpPic);
+		sJPanel.add(panel); // add buttons at top
+		sJPanel.add(inpanel); // allow scrolling
+		sJPanel.add(outpanel); // allow scrolling
+		bottomJPanel4.setLayout(new BorderLayout());
+		bottomJPanel4.add(animate,BorderLayout.NORTH);
+		bottomJPanel4.add(tmpPic,BorderLayout.CENTER);
+		setLayout(new GridLayout(2,1));
+		add(sJPanel);
+		add(bottomJPanel4);
 	}
 
 	private class EventListner implements ActionListener,ItemListener,KeyListener {
@@ -121,10 +147,10 @@ public class SortFrame extends JFrame {
 			changeIt.setText(String.format("%d",it));
 			nowTime.setText(String.format("/%d",sizeOfAnimateArray));
 			Chart chart = new Chart(animateArray[it]);
-			SortFrame.this.remove(tmpPic);
+			bottomJPanel4.remove(tmpPic);
 			tmpPic = chart.getChartPanel();
-			SortFrame.this.add(tmpPic);
-			SortFrame.this.revalidate();
+			bottomJPanel4.add(tmpPic);
+			bottomJPanel4.revalidate();
 		}
 		public void noImage(){ //此項是用來在沒有圖片時作的事
 			
