@@ -383,13 +383,13 @@ public class SortFrame extends JFrame {
 					System.out.println(e.getItem());
 					T2 = (String) e.getItem();
 					if(T2=="RandomArray"){//doc 文件請改成回傳String
-						//JOptionPane.showMessageDialog(null,generateRandomArray.doc(),"輸入說明",JOptionPane.INFORMATION_MESSAGE);
+						JOptionPane.showMessageDialog(null,generateRandomArray.doc(),"輸入說明",JOptionPane.INFORMATION_MESSAGE);
 					}
 					else if(T2=="ExampleArray"){
-						//JOptionPane.showMessageDialog(null,generateExampleArray.doc(),"輸入說明",JOptionPane.INFORMATION_MESSAGE);
+						JOptionPane.showMessageDialog(null,generateExampleArray.doc(),"輸入說明",JOptionPane.INFORMATION_MESSAGE);
 					}
 					else if(T2=="ReadArray"){
-						//JOptionPane.showMessageDialog(null,ReadArray.doc(),"輸入說明",JOptionPane.INFORMATION_MESSAGE);
+						JOptionPane.showMessageDialog(null,ReadArray.doc(),"輸入說明",JOptionPane.INFORMATION_MESSAGE);
 					}
 					else if(T2=="InputArray"){
 						JOptionPane.showMessageDialog(null,"請先點擊一次'Generate Array'按鈕後，於input區域輸入格式正確的陣列(整數、數字間須有空格、可以有負數、不可換行)\n最後再點選'NEW Generate Array'即可輸入陣列","輸入說明",JOptionPane.INFORMATION_MESSAGE);
