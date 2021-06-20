@@ -69,7 +69,7 @@ public class generate2DExampleArray {
         return Example2DArray;
     }
 
-    public String doc(){
+    public static String doc(){
         return "It can generate an Example (int[][]) 2DArray.";
     }
 }
