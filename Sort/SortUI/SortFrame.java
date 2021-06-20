@@ -14,6 +14,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
+import javax.swing.plaf.basic.BasicTreeUI.TreeCancelEditingAction;
 import javax.swing.JComboBox;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -25,7 +26,7 @@ public class SortFrame extends JFrame {
 	private final JComboBox<String> imagesJComboBox,imagesJComboBox2; // hold icon names
 	private static final String[] names = {"BubbleSort","InsertionSort","MergeSort","QuickSort","SelectionSort"};
 	private static final String[] names2 = {"RandomArray","ExampleArray","ReadArray","InputArray"};
-	private Boolean usingName = false,usingName2 = false;
+	private Boolean usingName = false,usingName2 = false,showImg = false;
 	private String T1,T2;// 捕捉combobox的狀態
 	private JButton increaseButton,decreaseButton,generateArray,RunButton,animation,left,right,changeSpeedL,goToIt,changeSpeedR; // button to decrease font size
 	private JTextArea inputText,outputText; // displays example text
@@ -147,14 +148,21 @@ public class SortFrame extends JFrame {
 		public void setAnimateImg(){//重製新圖片(把舊圖看掉放新的)
 			changeIt.setText(String.format("%d",it));
 			nowTime.setText(String.format("/%d",sizeOfAnimateArray));
-			Chart chart = new Chart(animateArray[it]);
-			bottomJPanel4.remove(tmpPic);
-			tmpPic = chart.getChartPanel();
-			bottomJPanel4.add(tmpPic);
+			if(showImg==true){
+				Chart chart = new Chart(animateArray[it]);
+				bottomJPanel4.remove(tmpPic);
+				tmpPic = chart.getChartPanel();
+				bottomJPanel4.add(tmpPic);
+			}
+			else{
+				bottomJPanel4.remove(tmpPic);
+				JLabel tmpLab = new JLabel(new ImageIcon("NO_IMAGE.png"));
+				tmpPic = new JPanel();
+				tmpPic.add(tmpLab);
+				bottomJPanel4.add(tmpPic);
+			}
 			bottomJPanel4.revalidate();
-		}
-		public void noImage(){ //此項是用來在沒有圖片時作的事
-			
+
 		}
 		public void judgeSortType(){
 			System.out.println("You choose "+T1);
@@ -182,19 +190,17 @@ public class SortFrame extends JFrame {
 					Gogo = new SelectionSort();
 				}
 				Gogo.SortMain(Array.getArray());
-				animateArray = Gogo.getsortStep();
+				sizeOfAnimateArray = Gogo.swapTime();
+				it=0;
+				if(JJ.canDraw(sizeOfAnimateArray,Array.getArraySize())==true){
+					animateArray = Gogo.getsortStep();
+					showImg = true;
+				}
+				else{
+					showImg = false;
+				}
 				outputText.setText(Gogo.getOutput());
-				if(Gogo.swapTime() == -1){
-					
-				}
-				else {
-					sizeOfAnimateArray = Gogo.swapTime();
-					it=0;
-					/*animate.remove(tmpPic);	//animate和按鈕共用一個panel會因為圖片太大而把按鈕擠掉
-					tmpPic = chart.getChartPanel();
-					animate.add(tmpPic);*/
-					setAnimateImg();
-				}
+				setAnimateImg();
 			}
 		}
 		public void judgeInput(){
