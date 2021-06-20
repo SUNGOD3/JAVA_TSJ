@@ -73,7 +73,10 @@ public class ReadArray {
 			input.close();
 	}
 
-    public void doc(){
-        System.out.println("在創建此類別時,建構子丟入記事本的路徑,且記事本中的資料格式須為整數且用空白分隔");
+    public static String doc(){
+        String str;
+        str = "";
+        str += "在創建此類別時，建構子丟入記事本的路徑，記事本中的資料格式須為整數，並且用空白分隔\n";
+        return str;
     }
 }

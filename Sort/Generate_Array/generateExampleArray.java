@@ -50,7 +50,10 @@ public class generateExampleArray {
         return ExampleArray;
     }
 
-    public String doc(){
-        return "It can generate an Example (int) Array.";
+    public static String doc(){
+        String str;
+        str = "";
+        str += "在創建此類別時，會產生一個由系統所決定的預設陣列\n";
+        return str;
     }
 }

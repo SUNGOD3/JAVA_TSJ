@@ -66,7 +66,10 @@ public class generateRandomArray{
         return RandomArray;
     }
 
-    public String doc(){
-        return "It can generate a Random (int) Array\nYou need input with 3 variable: ArraySize,LowerRange,UpperRange";
+    public static String doc(){
+        String str;
+        str = "";
+        str += "在創建此類別時，使用者須輸入ArraySize、LowerRange以及UpperRange三個參數，接著便會產生一個以ArraySize為大小、LowerRange為下為下界、UpperRange為上界之隨機陣列\n";
+        return str;
     }
 }
