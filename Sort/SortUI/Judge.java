@@ -51,4 +51,10 @@ public class Judge{
 		return true;
 	}
 
+	public Boolean canDraw(int swapTime,int arrSize){
+		if(arrSize>1000||swapTime>1000||arrSize*swapTime>500000||swapTime==-1){
+			return false;
+		}
+		return true;
+	}
 }
