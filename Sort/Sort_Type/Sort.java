@@ -5,6 +5,7 @@ public abstract class Sort{
 	private int mi,ma;//紀錄放入的陣列max和min
 	private String output;
 	Boolean firstTime;//紀錄是否有算過max和min
+	private Judge JJ=new Judge();
 	//說明文件
 	public abstract String doc();
 	//就是get name
@@ -44,7 +45,9 @@ public abstract class Sort{
 		tmpArr = runTest(tmpArr);
 		time2 = System.currentTimeMillis();
 		printArr(tmpArr);
-		sortStepArr = sortStep(swapTime(),tmp2Arr);
+		if(JJ.canDraw(swapTime(), arr.length)==true){
+			sortStepArr = sortStep(swapTime(),tmp2Arr);
+		}
 		output+=getName()+" used "+Double.toString(time2-time1)+" to sort the array\nSwap Times : "+Integer.toString(swapTime());
 		System.out.printf("%s used %f to sort the array\n",getName(),time2-time1);
 		System.out.printf("Swap Times : %d\n",swapTime());
