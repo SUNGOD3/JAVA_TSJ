@@ -18,7 +18,7 @@ public class NaiveMul extends Mul {
     public int[][] runTest(int[][] A, int[][] B) {
         count = 0;
         int arow = A.length, acol = A[0].length, brow = B.length, bcol = B[0].length;
-        int[][] R = new int[brow][acol];
+        int[][] R = new int[arow][bcol];
         for (int i = 0; i < acol; ++i) {
             for (int j = 0; j < brow; ++j) {
                 R[i][j] = 0;
