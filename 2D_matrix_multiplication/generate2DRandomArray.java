@@ -86,4 +86,7 @@ public class generate2DRandomArray {
         return Random2DArray;
     }
 
+    public static String doc(){
+        return "It can generate an Random (int[][]) 2DArray.";
+    }
 }
