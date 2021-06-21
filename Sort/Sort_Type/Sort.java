@@ -48,7 +48,7 @@ public abstract class Sort{
 		if(JJ.canDraw(swapTime(), arr.length)==true){
 			sortStepArr = sortStep(swapTime(),tmp2Arr);
 		}
-		output+=getName()+" used "+Double.toString(time2-time1)+" to sort the array\nSwap Times : "+Integer.toString(swapTime());
+		output+=getName()+" used "+Double.toString(time2-time1)+"ms to sort the array\nSwap Times : "+Integer.toString(swapTime());
 		System.out.printf("%s used %f to sort the array\n",getName(),time2-time1);
 		System.out.printf("Swap Times : %d\n",swapTime());
 		output+="\nresult:"+arrToString(tmpArr);
