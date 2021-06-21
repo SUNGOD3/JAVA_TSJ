@@ -62,10 +62,10 @@ public abstract class Mul{
 		time2 = System.currentTimeMillis();
 		print2DArr(ans2DArr);
 		//sortStepArr = sortStep(swapTime(),tmp2Arr);
-		output+=getName()+" used "+Double.toString(time2-time1)+" to multiply 2 matrices \nCalculate Times : "+Integer.toString(calTime());
+		output+=getName()+" used "+Double.toString(time2-time1)+"ms to multiply 2 matrices \nCalculate Times : "+Integer.toString(calTime());
 		System.out.printf("%s used %f to multiply 2 matrices\n",getName(),time2-time1);
 		System.out.printf("Calculate Times : %d\n",calTime());
-		output+="\nresult:"+ My2DArrToString(ans2DArr);
+		output+="\nresult:\n"+ My2DArrToString(ans2DArr);
 	}
 
 	public String getOutput(){

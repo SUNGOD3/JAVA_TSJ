@@ -6,10 +6,14 @@ public class generate2DRandomArray {
     private int[][] Random2DArray;
 
     public generate2DRandomArray(int RowSize, int ColSize, int LowerRange, int UpperRange) {
-        if (My2DArraySize <= 0) {
-            System.out.println("Error value of variable ArraySize,set ArraySize to 10");
-            My2DArraySize = 10;
-        }
+        if(RowSize<=0){
+            System.out.println("Error value of variable RowSize,set them to 4");
+            RowSize = 4;
+        }   
+        if(ColSize<=0){
+            System.out.println("Error value of variable ColSize,set them to 4");
+            ColSize = 4;
+        }  
         if (LowerRange > UpperRange) {
             System.out.println("Error value of variable LowerRange//UpperRange,set them to 0//100");
             LowerRange=0;
@@ -19,6 +23,7 @@ public class generate2DRandomArray {
         this.UpperRange = UpperRange;
         this.RowSize = RowSize;
         this.ColSize = ColSize;
+        this.My2DArraySize = RowSize*ColSize;
         int[][] Random2DArray = new int [RowSize][ColSize];
         Random rd = new Random();
         for (int i = 0; i < RowSize; ++i) {

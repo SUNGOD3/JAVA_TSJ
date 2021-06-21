@@ -105,6 +105,9 @@ public class MulFrame extends JFrame {
 				outputText.setText("2矩陣行列無法相乘");
 				RunButton.setIcon(gogofuck);
 			}
+			else if(T1=="Strassen"&&JJ.strassenCanRun(Array.get2DArray(),Array2.get2DArray())==false){
+				outputText.setText("Strassen演算法需為方陣，且長度要是2的冪次!");
+			}
 			else{
 				RunButton.setIcon(gogojpg);
 				Mul Gogo;
@@ -193,7 +196,7 @@ public class MulFrame extends JFrame {
 			if(e.getSource()==generateMatrix){//產生陣列
 				judgeInput();
 			}
-			if(e.getSource()==RunButton){//Sort
+			if(e.getSource()==RunButton){//Mul
 				judgeMulType();
 			}
 			//以下參考作業
