@@ -51,10 +51,16 @@ public class Judge{
 		return true;
 	}
 
-	public Boolean canDraw(int swapTime,int arrSize){
-		if(arrSize>1000||swapTime>1000||arrSize*swapTime>500000||swapTime==-1){
+	public Boolean strassenCanRun(int A[][],int B[][]){
+		if(A.length!=A[0].length||B.length!=B[0].length||A.length!=B.length){
 			return false;
+		}//非方陣
+		int b=1,l=A.length;
+		while(b<l){
+			b*=2;
 		}
+		if(b!=l)return false;//非2的冪次
 		return true;
 	}
+
 }
