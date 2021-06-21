@@ -37,7 +37,7 @@ public class MulFrame extends JFrame {
 	public MulFrame() {
 		super("Mul Frame Test");
 		sJPanel= new JPanel();
-		sJPanel.setLayout(new GridLayout(3,1));
+		sJPanel.setLayout(new GridLayout(2,1));
 		setLayout(new BorderLayout());
 		imagesJComboBox = new JComboBox<String>(names); // set up JComboBox
 		imagesJComboBox2 = new JComboBox<String>(names2); // set up JComboBox
@@ -87,16 +87,14 @@ public class MulFrame extends JFrame {
 		panel.add(decreaseButton);
 		panel.add(imagesJComboBox); // add combobox to JFrame
 		panel.add(imagesJComboBox2); // add combobox to JFrame
-		sJPanel.add(panel); // add buttons at top
+		setLayout(new BorderLayout());
+		add(panel,BorderLayout.NORTH); // add buttons at top
 		sJPanel.add(inpanel); // allow scrolling
 		sJPanel.add(outpanel); // allow scrolling
-		bottomJPanel4.setLayout(new BorderLayout());
-		setLayout(new GridLayout(2,1));
 		add(sJPanel);
-		add(bottomJPanel4);
 	}
 
-	private class EventListner implements ActionListener,ItemListener,KeyListener {
+	private class EventListner implements ActionListener,ItemListener{
 		public void judgeMulType(){
 			System.out.println("You choose "+T1);
 			if(Array==null||Array2==null){
@@ -268,6 +266,6 @@ public class MulFrame extends JFrame {
 				}
 			}
 			
-		} 
+		}
 	}
 }
