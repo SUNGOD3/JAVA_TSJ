@@ -50,7 +50,12 @@ public class Judge{
 		}
 		return true;
 	}
-
+	public Boolean canDraw(int swapTime,int arrSize){
+		if(arrSize>1000||swapTime>1000||arrSize*swapTime>500000||swapTime==-1){
+			return false;
+		}
+		return true;
+	}
 	public Boolean strassenCanRun(int A[][],int B[][]){
 		if(A.length!=A[0].length||B.length!=B[0].length||A.length!=B.length){
 			return false;
