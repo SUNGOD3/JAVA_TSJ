@@ -15,4 +15,12 @@ The goal is teaching application and algorithm research.
 5. Choose the algorithm you want to use to solve the problem.
 6. GoGo!
 
-#
+# Preview
+<img src="README_IMG/Step2.png" width="30%"> <img src="README_IMG/Sort_EX.png" width="25%"> <img src="README_IMG/Mul_EX.png" width="25%">
+
+# System Structure
+<img src="README_IMG/System_structure.png" width="50%">
+
+# Research results
+Since JAVA's recursive call is call by value, a divide-and-conquer algorithm such as 2D matrix multiplication like Strassen [O(n^2.807)] is actually better than Naïve [O(n^3)] is even slower (the n range is within the acceptable range for the system).
+As for algorithms with the same time complexity, such as Insertion/Bubble/Selection Sort [O(n^2)], the speed under the influence of constants is Bubble << Insertion < Selection (random measurement, n>=10000)
