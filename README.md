@@ -18,7 +18,7 @@ The goal is teaching application and algorithm research.
 ## Preview
 <img src="README_IMG/Step2.png" width="30%"> <img src="README_IMG/Sort_EX.png" width="25%"> <img src="README_IMG/Mul_EX.png" width="25%">
 
-## System Structure
+## System Architecture
 <img src="README_IMG/System_structure.png" width="50%">
 
 ## Research results
