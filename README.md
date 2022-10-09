@@ -10,4 +10,9 @@ The goal is teaching application and algorithm research.
 # How to use?
 1. Download and execute "第八組_演算法效能評比_2021.jar"
 2. Choose your problem: "sort" or "matrix multiplication"
-3. 
+3. Choose the way you generate test data, there are 4 ways of "I/O Read", "Example", "Random", ".txt Read" to generate the data you want.
+4. Don't forget to click "Generate Array/Matrix".
+5. Choose the algorithm you want to use to solve the problem.
+6. GoGo!
+
+#
